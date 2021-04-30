@@ -44,4 +44,4 @@ question = str(x.question.text)
 
 x.add_symptom("s_21",'present')
 request = api.diagnosis(x)
-print request
+print (request)
