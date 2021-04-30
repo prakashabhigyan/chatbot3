@@ -18,7 +18,7 @@ API_AI_KEY = None
 api = infermedica_api.API(app_id='21794b8d', app_key=INFERMEDICA_KEY)
 print(api.info())
 
-app = Flask(__name__)
+app = Flask(name)
 
 symptom_mode = False
 symptom = None
@@ -101,23 +101,23 @@ def webhook():
                             send_message(sender_id, str(diagnosis.question.text))
                         
 
-                    # if message.get("text"): # get message
-                    #     message = message["text"]
-                    #     if symptom_mode:
-                    #         symptoms = 3
-                    #         print symptoms
-                    #         # if symptom == None
-                    #         #     symptom = apiai_symptom(message) # assuming user put symptom
-                    #         # elif 
+                    if message.get("text"): # get message
+                        message = message["text"]
+                        if symptom_mode:
+                            symptoms = 3
+                            print symptoms
+                            # if symptom == None
+                            #     symptom = apiai_symptom(message) # assuming user put symptom
+                            # elif 
 
 
-                    #     elif alert_mode:
-                    #         pass
-                    #     else:
-                    #         if message == "Hi":
-                    #             init_buttom_template(sender_id)
-                    #         else:
-                    #             send_message(sender_id, "Say 'Hi' to the DoctorBot to get started!")
+                        elif alert_mode:
+                            pass
+                        else:
+                            if message == "Hi":
+                                init_buttom_template(sender_id)
+                            else:
+                                send_message(sender_id, "Say 'Hi' to the DoctorBot to get started!")
 
                     elif message.get("attachments"):    # get attachment
                         attach = message["attachments"][0]  # loop over attachments?
@@ -155,11 +155,11 @@ def webhook():
                             send_message(sender_id, message)
 
 
-                # if messaging_event.get("delivery"):  # delivery confirmation
-                #     pass
+                if messaging_event.get("delivery"):  # delivery confirmation
+                    pass
 
-                # if messaging_event.get("optin"):  # optin confirmation
-                #     pass
+                if messaging_event.get("optin"):  # optin confirmation
+                    pass
 
     return "ok", 200
 
@@ -189,7 +189,7 @@ def api_ai_filled(message):
     response = request.getresponse()
     data = json.loads(response.read())
     print data
-    # response = str(data["result"]["fulfillment"]["speech"])
+    response = str(data["result"]["fulfillment"]["speech"])
     symptom = str(data["result"]["parameters"]["symptoms"])
     age = str(data["result"]["parameters"]["age"]["unit"])
     gender = str(data["result"]["parameters"]["sex"])
@@ -302,5 +302,5 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if name == 'main':
+    app.run(debug=True
